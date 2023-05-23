@@ -42,7 +42,7 @@ pipeline{
                script{
                 sh '''
                     docker build -t latesh .
-                    ddocker tag latesh:latest 252820710416.dkr.ecr.ap-northeast-1.amazonaws.com/latesh:latest
+                    docker tag latesh:latest 252820710416.dkr.ecr.ap-northeast-1.amazonaws.com/latesh:latest
                     '''
                }
             }
