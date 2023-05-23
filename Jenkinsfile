@@ -35,13 +35,13 @@ pipeline{
                }
             }
         }
-        stage("Docker image build & tag"){
+        stage("Docker image build "){
             steps{
                 echo "========executing docekr image build========"
 
                script{
                 sh '''
-                    docker image build -t ${JOB_NAME}:V.${BUILD_ID}
+                    docker image build -t ${JOB_NAME}:V.${BUILD_ID} .
                     '''
                }
             }
