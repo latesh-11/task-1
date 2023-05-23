@@ -42,8 +42,8 @@ pipeline{
                script{
                 sh '''
                     docker image build -t ${JOB_NAME}:V.${BUILD_ID} .
-                    docker image tag ${JOB_NAME}:V.${BUILD_ID} latesh/${JOB_NAME}:V.${BUILD_ID}
-                    docker image tag ${JOB_NAME}:V.${BUILD_ID} latesh/${JOB_NAME}:latest
+                    docker image tag ${JOB_NAME}:V.${BUILD_ID} 252820710416.dkr.ecr.ap-northeast-1.amazonaws.com/${JOB_NAME}:V.${BUILD_ID}
+                    docker image tag ${JOB_NAME}:V.${BUILD_ID} 252820710416.dkr.ecr.ap-northeast-1.amazonaws.com/${JOB_NAME}:latest
                     '''
                }
             }
