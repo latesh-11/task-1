@@ -51,7 +51,7 @@ pipeline{
             steps{
                 echo "========executing docekr image push========"
                 script{
-                    docker.withRegistry("https://252820710416.dkr.ecr.ap-northeast-1.amazonaws.com/latesh","ecr:ap-northeast-1:docker-login")  {
+                   withDockerRegistry(credentialsId: 'ecr:ap-northeast-1:docker-login', url: 'ttps://252820710416.dkr.ecr.ap-northeast-1.amazonaws.com/latesh')  {
                     
                     
                        sh "aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin 252820710416.dkr.ecr.ap-northeast-1.amazonaws.com"
