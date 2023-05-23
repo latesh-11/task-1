@@ -50,7 +50,7 @@ pipeline{
         stage("Docker image push "){
             steps{
                 echo "========executing docekr image push========"
-                script{
+                
                    withDockerRegistry(credentialsId: 'ecr:ap-northeast-1:docker-login', url: 'https://252820710416.dkr.ecr.ap-northeast-1.amazonaws.com/latesh')  {
                     
                     
@@ -60,7 +60,7 @@ pipeline{
                     
                     
                     }
-                }
+                
             }
         }
     }
