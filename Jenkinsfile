@@ -35,5 +35,16 @@ pipeline{
                }
             }
         }
+        stage("Docker image build & tag"){
+            steps{
+                echo "========executing docekr image build========"
+
+               script{
+                sh '''
+                    docker image build -t ${JOB_NAME}:V.${BUILD_ID}
+                    '''
+               }
+            }
+        }
     }
 }
