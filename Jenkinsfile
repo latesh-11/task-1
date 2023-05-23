@@ -48,5 +48,17 @@ pipeline{
                }
             }
         }
+        stage("Docker image push "){
+            steps{
+                echo "========executing docekr image push========"
+
+               script{
+                sh '''
+                    aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin 252820710416.dkr.ecr.ap-northeast-1.amazonaws.com
+                    docker push 252820710416.dkr.ecr.ap-northeast-1.amazonaws.com/${JOB_NAME}:latest
+                    '''
+               }
+            }
+        }
     }
 }
