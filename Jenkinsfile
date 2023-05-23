@@ -42,6 +42,8 @@ pipeline{
                script{
                 sh '''
                     docker image build -t ${JOB_NAME}:V.${BUILD_ID} .
+                    docker image tag ${JOB_NAME}:V.${BUILD_ID} latesh/${JOB_NAME}:V.${BUILD_ID}
+                    docker image tag ${JOB_NAME}:V.${BUILD_ID} latesh/${JOB_NAME}:latest
                     '''
                }
             }
