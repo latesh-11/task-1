@@ -39,22 +39,53 @@ pipeline{
                 
             }
         }
-        stage("create pod"){
+        stage("eks deployment"){
             when { expression { params.action == 'create' } }
             steps{
-                echo "========executing create pod========"
-                sh "kubectl apply -f . "      
-            }
-        }
-        stage("destroy pod"){
-            when { expression { params.action == 'destroy' } }
-            steps{
-                echo "========executing destroy pod========"
+                echo "========executing eks deployment========"
 
-                sh "kubectl delete -f ." 
+                script{
+                    def apply = false
+                    try{
+                        input massage: 'please confirm the apply to initita the deployments', ok: 'Ready to apply the config'
+                        apply = true
+                    }        
+                    catch(err){
+                        apply = false
+                        CurrentBuild.result = 'UNSTABLE'
+                    }
+                    if(apply){
+                            // deploy all manifest files
+                        sh """
+                            kubectl apply -f .
+                            """
+                    }
+                }
             }
-            
         }
+         stage("delete deployment"){
+            when {expression {params.action == 'destroy'}}
+            steps{
+                echo "========executing delete deployment========"
+
+                script {
+                    def destroy = falce
+
+                    try{
+                        input massage: 'please confirm the destroy to delete the deployments' , ok: 'Ready to destroy the config'
+                        destroy = true
+                    }
+                    catch(err){
+                        destroy = false
+                        CurrentBuild.result= 'UNSTABLE'
+                    } 
+                    if(destroy){
+                        sh """
+                            kubectl delete -f .
+                            """
+                    }
+                }
+            }
     }
 
 }
