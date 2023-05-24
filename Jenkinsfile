@@ -43,10 +43,7 @@ pipeline{
             when { expression { params.action == 'create' } }
             steps{
                 echo "========executing create pod========"
-                 sh "whoami"
-                 sh "chmod u+x ./kubectl"
-                sh "kubectl apply -f deployment.yml  " 
-                sh "kubectl apply -f service.yml"      
+                sh "kubectl apply -f . "      
             }
         }
         stage("destroy pod"){
