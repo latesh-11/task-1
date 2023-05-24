@@ -17,7 +17,7 @@ pipeline{
         stage("eks connect"){
             steps{
                 echo "========executing eks connect========"
-                sh 'aws eks --region $(params.region) update-kubeconfig --name $(params.cluster)'
+                sh 'aws eks --region ${params.region} update-kubeconfig --name ${params.cluster}'
                 
             }
         }
