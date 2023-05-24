@@ -3,6 +3,8 @@ pipeline{
 
     parameters{
         choice (name: 'action' , choices: [ 'create' , 'destroy' ] , description: 'Create OR Destroy the cluster')
+        string (name: 'reagion' , defaultValue: 'ap-northeast-1' , description: 'what is your aws region ' )
+        string (name: 'cluster' , defaultValue: 'my_EKS' , description: 'what is your EKS cluster name' ) 
     }
     stages{
         stage("git checkout"){
@@ -10,6 +12,13 @@ pipeline{
                 echo "========executing git checkout========"
 
                 git branch: 'main', url: 'https://github.com/latesh-11/task-1.git'
+            }
+        }
+          stage("eks connect"){
+            steps{
+                echo "========executing eks connect========"
+                sh "aws eks --region $(params.region) update-kubeconfig --name $(params.cluster)"
+                
             }
         }
         stage("docker image pull"){
@@ -38,7 +47,7 @@ pipeline{
                 echo "========executing destroy pod========"
 
                 sh "kubectl delete -f ."            
-            }
+            
         }
     }
 
