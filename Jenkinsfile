@@ -12,13 +12,7 @@ pipeline{
                 git branch: 'main', url: 'https://github.com/latesh-11/task-1.git'
             }
         }
-        stage("eks connect"){
-            steps{
-                echo "========executing eks connect========"
-                sh 'aws eks --region ap-northeast-1 update-kubeconfig --name myEKS '
-                
-            }
-        }
+        
         stage("docker image pull"){
             steps{
                 echo "========executing docker image pull========"
@@ -29,6 +23,13 @@ pipeline{
                        sh "docker pull 252820710416.dkr.ecr.ap-northeast-1.amazonaws.com/latesh:latest"
                     }
                 }
+            }
+        }
+        stage("eks connect"){
+            steps{
+                echo "========executing eks connect========"
+                sh 'aws eks --region ap-northeast-1 update-kubeconfig --name myEKS '
+                
             }
         }
         stage("create pod"){
