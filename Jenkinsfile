@@ -29,7 +29,7 @@ pipeline{
                    withDockerRegistry(credentialsId: 'ecr:ap-northeast-1:docker-login', url: 'https://252820710416.dkr.ecr.ap-northeast-1.amazonaws.com/latesh')  {
                         sh "aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin 252820710416.dkr.ecr.ap-northeast-1.amazonaws.com"
                         sh "docker pull 252820710416.dkr.ecr.ap-northeast-1.amazonaws.com/latesh:latest"
-                    }
+                   }
                 }
             }
         }
@@ -46,7 +46,8 @@ pipeline{
             steps{
                 echo "========executing destroy pod========"
 
-                sh "kubectl delete -f ."            
+                sh "kubectl delete -f ." 
+            }
             
         }
     }
