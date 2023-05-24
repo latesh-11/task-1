@@ -3,8 +3,6 @@ pipeline{
 
     parameters{
         choice (name: 'action' , choices: [ 'create' , 'destroy' ] , description: 'Create OR Destroy the cluster')
-        string (name: 'region' , defaultValue: 'ap-northeast-1' , description: 'what is your aws region ' )
-        string (name: 'cluster' , defaultValue: 'myEKS' , description: 'what is your EKS cluster name' ) 
     }
     stages{
         stage("git checkout"){
@@ -17,7 +15,7 @@ pipeline{
         stage("eks connect"){
             steps{
                 echo "========executing eks connect========"
-                sh 'aws eks --region ${params.region} update-kubeconfig --name ${params.cluster}'
+                sh 'aws eks --region ap-northeast-1 update-kubeconfig --name myEKS '
                 
             }
         }
