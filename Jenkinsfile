@@ -1,67 +1,45 @@
 pipeline{
     agent any
+
+    parameters{
+        choice (name:'action' , Choices [ 'create' , 'destroy' ] , description: "Create OR Destroy the cluster")
+    }
     stages{
-        stage("Git checkout"){
+        stage("git checkout"){
             steps{
                 echo "========executing git checkout========"
 
                 git branch: 'main', url: 'https://github.com/latesh-11/task-1.git'
             }
         }
-        stage("Unit test"){
+        stage("docker image pull"){
             steps{
-                echo "========executing unit test========"
+                echo "========executing docker image pull========"
 
-               script{
-                sh 'mvn test'
-               }
-            }
-        }
-        stage("Integration testing"){
-            steps{
-                echo "========executing Integration testing========"
-
-               script{
-                sh 'mvn verify -DskipUnitTest'
-               }
-            }
-        }
-        stage("maven build"){
-            steps{
-                echo "========executing Maven build========"
-
-               script{
-                sh 'mvn clean install'
-               }
-            }
-        }
-        stage("Docker image build "){
-            steps{
-                echo "========executing docekr image build========"
-
-               script{
-                sh '''
-                    docker build -t latesh .
-                    docker tag latesh:latest 252820710416.dkr.ecr.ap-northeast-1.amazonaws.com/latesh:latest
-                    '''
-               }
-            }
-        }
-        stage("Docker image push "){
-            steps{
-                echo "========executing docekr image push========"
                 script{
                    withDockerRegistry(credentialsId: 'ecr:ap-northeast-1:docker-login', url: 'https://252820710416.dkr.ecr.ap-northeast-1.amazonaws.com/latesh')  {
-                    
-                    
                         sh "aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin 252820710416.dkr.ecr.ap-northeast-1.amazonaws.com"
-                        sh "docker push 252820710416.dkr.ecr.ap-northeast-1.amazonaws.com/latesh:latest"
-                        sh "docker image rm -f 252820710416.dkr.ecr.ap-northeast-1.amazonaws.com/latesh:latest"
-                    
-                    
+                        sh "docker pull 252820710416.dkr.ecr.ap-northeast-1.amazonaws.com/latesh:latest"
                     }
                 }
             }
         }
+        stage("create pod"){
+            when { expression { params.action == 'create' } }
+            steps{
+                echo "========executing create pod========"
+
+                sh "kubectl apply -f .  "              
+            }
+        }
+         stage("destroy pod"){
+            when { expression { params.action == 'destroy' } }
+            steps{
+                echo "========executing destroy pod========"
+
+                sh "kubectl delete -f ."            
+            }
+        }
     }
+
 }
