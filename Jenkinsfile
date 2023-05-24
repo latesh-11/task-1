@@ -2,7 +2,7 @@ pipeline{
     agent any
 
     parameters{
-        choice (name:'action' , choices [ 'create' , 'destroy' ] , description: 'Create OR Destroy the cluster')
+        choice (name: 'action' , choices: [ 'create' , 'destroy' ] , description: 'Create OR Destroy the cluster')
     }
     stages{
         stage("git checkout"){
