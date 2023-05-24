@@ -41,8 +41,11 @@ pipeline{
         }
         stage("eks deployment"){
             when { expression { params.action == 'create' } }
+            
             steps{
                 echo "========executing eks deployment========"
+                sh "cp /var/lib/jenkins/bin/kubectl ."
+                sh "ls -l"
 
                 script{
                     def apply = false
@@ -67,7 +70,7 @@ pipeline{
             when {expression {params.action == 'destroy'}}
             steps{
                 echo "========executing delete deployment========"
-
+                
                 script {
                     def destroy = falce
 
