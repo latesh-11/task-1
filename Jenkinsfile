@@ -44,7 +44,8 @@ pipeline{
             steps{
                 echo "========executing create pod========"
 
-                sh "kubectl apply -f .  "              
+                 sh "kubectl apply -f deployment.yml  " 
+                sh "kubectl apply -f service.yml"      
             }
         }
         stage("destroy pod"){
