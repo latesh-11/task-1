@@ -4,7 +4,7 @@ pipeline{
     parameters{
         choice (name: 'action' , choices: [ 'create' , 'destroy' ] , description: 'Create OR Destroy the cluster')
         string (name: 'reagion' , defaultValue: 'ap-northeast-1' , description: 'what is your aws region ' )
-        string (name: 'cluster' , defaultValue: 'my_EKS' , description: 'what is your EKS cluster name' ) 
+        string (name: 'cluster' , defaultValue: 'myEKS' , description: 'what is your EKS cluster name' ) 
     }
     stages{
         stage("git checkout"){
