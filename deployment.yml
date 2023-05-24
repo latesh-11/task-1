@@ -17,5 +17,6 @@ spec:
       containers:
       - name: my-app
         image:  252820710416.dkr.ecr.ap-northeast-1.amazonaws.com/latesh:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 9099
