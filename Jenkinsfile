@@ -15,18 +15,18 @@ pipeline{
             }
         }
         
-        stage("docker image pull"){
-            steps{
-                echo "========executing docker image pull========"
+        // stage("docker image pull"){
+        //     steps{
+        //         echo "========executing docker image pull========"
 
-                script{
-                    withDockerRegistry(credentialsId: 'ecr:ap-northeast-1:docker-login', url: 'https://252820710416.dkr.ecr.ap-northeast-1.amazonaws.com/latesh') {
-                       sh "aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin 252820710416.dkr.ecr.ap-northeast-1.amazonaws.com"
-                       sh "docker pull 252820710416.dkr.ecr.ap-northeast-1.amazonaws.com/latesh:latest"
-                    }
-                }
-            }
-        }
+        //         script{
+        //             withDockerRegistry(credentialsId: 'ecr:ap-northeast-1:docker-login', url: 'https://252820710416.dkr.ecr.ap-northeast-1.amazonaws.com/latesh') {
+        //                sh "aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin 252820710416.dkr.ecr.ap-northeast-1.amazonaws.com"
+        //                sh "docker pull 252820710416.dkr.ecr.ap-northeast-1.amazonaws.com/latesh:latest"
+        //             }
+        //         }
+        //     }
+        // }
         stage("eks connect"){
             steps{
                 echo "========executing eks connect========"
