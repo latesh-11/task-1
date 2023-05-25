@@ -44,7 +44,6 @@ pipeline{
             
             steps{
                 echo "========executing eks deployment========"
-                sh "cp /var/lib/jenkins/bin/kubectl ."
                 sh "ls -l"
 
                 script{
@@ -59,11 +58,8 @@ pipeline{
                     }
                     if(apply){
                             // deploy all manifest files
-                        sh "cp /var/lib/jenkins/bin/kubectl ."
-                        sh "chmod +x kubectl"
-                        sh "ls -l"
                         sh """
-                            ./kubectl apply -f .
+                            kubectl apply -f .
                             """
                     }
                 }
