@@ -60,11 +60,9 @@ pipeline{
                     if(apply){
                             // deploy all manifest files
                         sh "cp /var/lib/jenkins/bin/kubectl ."
-                        sh "chmod +x kubectl"
                         sh "ls -l"
                         sh """
-                            pwd
-                            ./kubectl apply -f .
+                            kubectl apply -f .
                             """
                     }
                 }
@@ -88,7 +86,7 @@ pipeline{
                     } 
                     if(destroy){
                         sh """
-                            ./kubectl delete -f .
+                            kubectl delete -f .
                             """
                     }
                 }
