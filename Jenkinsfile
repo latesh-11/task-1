@@ -45,6 +45,7 @@ pipeline{
             steps{
                 echo "========executing eks deployment========"
                 sh "cp /var/lib/jenkins/bin/kubectl ."
+                sh "chmod +x kubectl"
                 sh "ls -l"
 
                 script{
