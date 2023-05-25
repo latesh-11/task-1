@@ -44,8 +44,6 @@ pipeline{
             
             steps{
                 echo "========executing eks deployment========"
-                sh "ls -l"
-
                 script{
                     def apply = false
                     try{
@@ -58,6 +56,7 @@ pipeline{
                     }
                     if(apply){
                             // deploy all manifest files
+                        sh 'pwd'
                         sh """
                             kubectl apply -f .
                             """
